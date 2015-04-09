@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+            {
+    "geometry": {
+                    "type": "Point",
+                    "coordinates": [-3.81805, 40.28228]
+    },
+    "type": "Feature",
+    "properties": {
+                    "Name": "hola"
+    },
+    "id": 1
+            },
+            {
+    "geometry": {
+                    "type": "Point",
+                    "coordinates": [-3.81906, 40.28323]
+    },
+    "type": "Feature",
+    "properties": {
+                    "Name": "Laboratorios II"
+    },
+    "id": 52
+            }
+  ]
+}
