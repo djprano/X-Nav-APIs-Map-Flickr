@@ -11,7 +11,7 @@ function buscar(){
 $(document).ready(function() {
 
     //Create de event button search
-    $("div#search button").click(buscar);
+    $("div#buscar button").click(buscar);
     // Create a map in the "map" div
     var map = L.map('map');
     // Set the view to current location
