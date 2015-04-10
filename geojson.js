@@ -1,19 +1,79 @@
-function buscar(){
-
-    lugar = $('#addr').value();
-    $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q='+lugar,function(data){
-        console.log(data);
-    });
-
+function borrar(){
+    $('#results').empty();
+    $('#flickr').empty();
+    $("#flickr").hide(1500);
 
 }
 
-$(document).ready(function() {
+function chooseAddr() {
+    var li = $(this).text();
+    var text = li.split(':');
+    var coords = text[1].split(',');
+    var ref = text[0].split(',');
+    var sitio = ref[0];
+    var location = new L.LatLng(coords[0], coords[1]);
+    map.panTo(location);
+    var p = L.popup();
+    p
+    .setLatLng(location)
+    .setContent(text[0])
+    .openOn(map);
+
+    var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+    $.getJSON( flickerAPI, {
+        tags: sitio,
+        tagmode: "any",
+        format: "json"
+    }).done(function(data){
+        var i;
+        $('#flickr').empty();
+        for(i=0;i<data.items.length;i++){
+            var image = new Image();
+            image.src=data.items[i].media.m;
+            image.height=100;
+            image.width=100;
+            $('#flickr').append(image);
+            $("#flickr").show(1500);
+        }
+    });
+}
+
+
+    function buscar(){
+
+        lugar = $('#addr').val();
+        items = [];
+        $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q='+lugar,function(data){
+            $.each(data,function(key,value){
+                items.push("<li>"+value.display_name+": "+value.lat+","+value.lon+"</li>");
+            });
+
+            $('#results').empty();
+            if(items.length !=0){
+                for (i in items){$('#results').append(items[i]);}
+            }else{
+                $('#results').append('<p>No results found</p>');
+            }
+            $('<p>', { html: "<button id='close' type='button'>Close</button>" }).appendTo('#results');
+            $("#close").click(borrar);
+            $('#results').on('click', 'li', chooseAddr);
+        });
+
+
+    }
+
+
+    $(document).ready(function() {
+
+    //ocultar el div de flickr
+    $("#flickr").hide();
 
     //Create de event button search
     $("div#buscar button").click(buscar);
+
+
     // Create a map in the "map" div
-    var map = L.map('map');
+    map = L.map('map');
     // Set the view to current location
     map.setView([40.2838, -3.8215], 15);
     // Add a MapQuest map

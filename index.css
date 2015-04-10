@@ -18,3 +18,19 @@ div#buscar {
 div#buscar input {
   width: 200px;
 }
+div#results{
+  font-style: sans-serif;
+  color: black;
+  font-size: 75%;
+}
+
+div#flickr{
+/*width        : 1000px;*/
+height       : 100px;
+border       : 1px solid;
+border-radius: 5px;
+box-shadow   : 8px 8px 8px rgba(0,0,0,0.4);
+margin       : 0 auto;
+display: none;
+
+}
