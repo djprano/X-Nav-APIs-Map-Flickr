@@ -1,6 +1,17 @@
-// JavaScript for simple.html (Leaflet)
+function buscar(){
+
+    lugar = $('#addr').value();
+    $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q='+lugar,function(data){
+        console.log(data);
+    });
+
+
+}
 
 $(document).ready(function() {
+
+    //Create de event button search
+    $("div#search button").click(buscar);
     // Create a map in the "map" div
     var map = L.map('map');
     // Set the view to current location
